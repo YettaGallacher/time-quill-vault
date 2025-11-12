@@ -55,6 +55,17 @@ const config: HardhatUserConfig = {
       chainId: 31337,
       url: "http://localhost:8545",
     },
+    sepolia: {
+      accounts: PRIVATE_KEY
+        ? [PRIVATE_KEY]
+        : {
+            mnemonic: MNEMONIC,
+            path: "m/44'/60'/0'/0/",
+            count: 10,
+          },
+      chainId: 11155111,
+      url: INFURA_API_KEY ? `https://sepolia.infura.io/v3/${INFURA_API_KEY}` : "https://sepolia.infura.io/v3/",
+    },
   },
   paths: {
     artifacts: "./artifacts",
