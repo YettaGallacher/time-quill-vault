@@ -152,5 +152,61 @@ describe("InheritanceRuleCheck", function () {
 
     expect(clearResult).to.be.false;
   });
+
+  it("should check eligibility for age 18 (exactly eligible)", async function () {
+    const clearAge = 18;
+
+    // Encrypt age as euint32
+    const encryptedAge = await fhevm
+      .createEncryptedInput(inheritanceContractAddress, signers.deployer.address)
+      .add32(clearAge)
+      .encrypt();
+
+    // Call checkEligibility
+    const tx = await inheritanceContract
+      .connect(signers.deployer)
+      .checkEligibility(encryptedAge.handles[0], encryptedAge.inputProof);
+    await tx.wait();
+
+    // Get the encrypted result
+    const encryptedResult = await inheritanceContract.getEligibilityResult(signers.deployer.address);
+
+    // Decrypt the result
+    const clearResult = await fhevm.userDecryptEbool(
+      encryptedResult,
+      inheritanceContractAddress,
+      signers.deployer,
+    );
+
+    expect(clearResult).to.be.true;
+  });
+
+  it("should check eligibility for age 19 (eligible)", async function () {
+    const clearAge = 19;
+
+    // Encrypt age as euint32
+    const encryptedAge = await fhevm
+      .createEncryptedInput(inheritanceContractAddress, signers.alice.address)
+      .add32(clearAge)
+      .encrypt();
+
+    // Call checkEligibility
+    const tx = await inheritanceContract
+      .connect(signers.alice)
+      .checkEligibility(encryptedAge.handles[0], encryptedAge.inputProof);
+    await tx.wait();
+
+    // Get the encrypted result
+    const encryptedResult = await inheritanceContract.getEligibilityResult(signers.alice.address);
+
+    // Decrypt the result
+    const clearResult = await fhevm.userDecryptEbool(
+      encryptedResult,
+      inheritanceContractAddress,
+      signers.alice,
+    );
+
+    expect(clearResult).to.be.true;
+  });
 });
 
