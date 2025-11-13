@@ -1,8 +1,11 @@
 import { WaxSeal } from "./WaxSeal";
 import { Button } from "./ui/button";
-import { Lock, Clock, Shield } from "lucide-react";
+import { Lock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section className="relative py-20 px-4 overflow-hidden">
       {/* Decorative background elements */}
@@ -30,7 +33,11 @@ export const Hero = () => {
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center pt-4">
-            <Button size="lg" className="gap-2 font-garamond text-lg">
+            <Button 
+              size="lg" 
+              className="gap-2 font-garamond text-lg"
+              onClick={() => navigate('/create')}
+            >
               <Lock className="w-5 h-5" />
               Create Your First Letter
             </Button>
