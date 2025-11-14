@@ -268,6 +268,124 @@ input[type="text"]:hover:not(:focus), input[type="number"]:hover:not(:focus) {
   background: linear-gradient(180deg, var(--accent), var(--success));
 }
 
+/* Loading Animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.7;
+    transform: scale(1.05);
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -468px 0;
+  }
+  100% {
+    background-position: 468px 0;
+  }
+}
+
+.loading-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.fade-in-up {
+  animation: fade-in-up 0.6s ease-out;
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 400% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Responsive Design Improvements */
+@media (max-width: 768px) {
+  .panel-card {
+    padding: 1.5rem;
+    margin: 0 1rem;
+  }
+
+  .panel-title {
+    font-size: 1.25rem;
+  }
+
+  input[type="text"], input[type="number"] {
+    padding: 0.875rem 1rem;
+    font-size: 16px; /* Prevents zoom on iOS */
+  }
+
+  .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .app-container {
+    padding: 0 0.5rem;
+  }
+
+  .panel-card {
+    padding: 1rem;
+    border-radius: var(--radius-lg);
+  }
+
+  .modern-header {
+    padding: 1rem 0;
+  }
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  .panel-card,
+  input[type="text"],
+  input[type="number"],
+  .btn,
+  .result-card,
+  .loading-pulse,
+  .fade-in-up {
+    animation: none;
+    transition: none;
+  }
+}
+
+/* Focus visible for better accessibility */
+.btn:focus-visible,
+input[type="text"]:focus-visible,
+input[type="number"]:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --border: #000000;
+    --text-secondary: #000000;
+    --panel: #ffffff;
+  }
+
+  .panel-card {
+    border-width: 2px;
+  }
+}
+
 /* Hide non-critical error notifications and issues from browser extensions */
 [data-nextjs-error-overlay],
 #__next-build-watcher,
