@@ -31,8 +31,12 @@ export const config = getDefaultConfig({
   chains: [sepolia, localhostChain],
   ssr: false,
   transports: {
-    [sepolia.id]: http(),
-    [localhostChain.id]: http(),
+    [sepolia.id]: http(process.env.NEXT_PUBLIC_SEPOLIA_RPC_URL || 'https://sepolia.infura.io/v3/'),
+    [localhostChain.id]: http('http://127.0.0.1:8545'),
   },
 });
+
+// Custom RPC URLs can be set via environment variables:
+// NEXT_PUBLIC_SEPOLIA_RPC_URL - Custom Sepolia RPC endpoint
+// NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID - WalletConnect project ID
 
