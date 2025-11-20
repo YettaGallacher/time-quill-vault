@@ -23,4 +23,10 @@ tmp
 coverage.json
 pnpm-lock.yaml
 yarn.lock
+*.swp
+*.swo
+.vscode/
+.idea/
+*.tmp
+*.bak
 
