@@ -4,17 +4,27 @@
 "use client";
 
 import { ConnectButton } from '@rainbow-me/rainbowkit';
-import { useAccount } from 'wagmi';
+import { useAccount, useChainId } from 'wagmi';
 import { useEffect, useState } from 'react';
 
 export function Header() {
   const { isConnected } = useAccount();
+  const chainId = useChainId();
   const [mounted, setMounted] = useState(false);
 
   // Only render connection status after client-side hydration
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  const getNetworkName = (id: number) => {
+    switch (id) {
+      case 1: return 'Ethereum';
+      case 11155111: return 'Sepolia';
+      case 31337: return 'Localhost';
+      default: return 'Unknown';
+    }
+  };
 
   return (
     <header className="modern-header">
@@ -32,10 +42,15 @@ export function Header() {
         </div>
         <div className="flex items-center gap-3">
           {mounted && isConnected && (
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-[rgba(16,185,129,0.1)] to-[rgba(16,185,129,0.05)] border border-[rgba(16,185,129,0.2)]">
-              <div className="w-2 h-2 bg-[var(--success)] rounded-full animate-pulse"></div>
-              <span className="text-sm font-semibold text-[var(--success)]">Connected</span>
-            </div>
+            <>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-[rgba(16,185,129,0.1)] to-[rgba(16,185,129,0.05)] border border-[rgba(16,185,129,0.2)]">
+                <div className="w-2 h-2 bg-[var(--success)] rounded-full animate-pulse"></div>
+                <span className="text-sm font-semibold text-[var(--success)]">Connected</span>
+              </div>
+              <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-gradient-to-r from-[rgba(99,102,241,0.1)] to-[rgba(99,102,241,0.05)] border border-[rgba(99,102,241,0.2)]">
+                <span className="text-sm font-semibold text-[var(--accent)]">{getNetworkName(chainId)}</span>
+              </div>
+            </>
           )}
           <ConnectButton />
         </div>
