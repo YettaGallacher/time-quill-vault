@@ -4,7 +4,7 @@ import { SDK_CDN_URL } from "./constants";
 type TraceType = (message?: unknown, ...optionalParams: unknown[]) => void;
 
 export class RelayerSDKLoader {
-  private _trace?: TraceType;
+  private _trace: TraceType | undefined;
 
   constructor(options: { trace?: TraceType }) {
     this._trace = options.trace;
