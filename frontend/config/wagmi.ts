@@ -7,7 +7,7 @@ import { http } from 'wagmi';
 // Note: Using a placeholder projectId will cause API warnings but won't affect wallet connection functionality
 // To get a real projectId (optional for local development), visit https://cloud.walletconnect.com
 // Then set NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID in your .env.local file
-const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'demo-project-id-inheritance-rule-check';
+const projectId = process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || 'e08e99d213c331aa0fd00f625de06e66';
 
 // Define localhost chain with chainId 31337 to match Hardhat
 const localhostChain = defineChain({
